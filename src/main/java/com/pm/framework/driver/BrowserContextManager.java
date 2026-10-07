@@ -13,7 +13,7 @@ public class BrowserContextManager {
         double timeout = Double.parseDouble(ConfigManager.get("timeout"));
         BrowserContext browserContext = browser.newContext(
                 new Browser.NewContextOptions().setRecordVideoDir(
-                        Paths.get("src/main/resources/test-artifacts/videos")
+                        Paths.get("target/test-artifacts/videos")
                 )
         );
         browserContext.setDefaultTimeout(timeout);
