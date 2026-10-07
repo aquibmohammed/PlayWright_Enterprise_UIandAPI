@@ -4,6 +4,7 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import com.pm.framework.components.ProductCard;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,7 @@ public class ProductPage extends BasePage {
 
 
     public boolean isProductsPageDisplayed() {
-
-        return page.getByText("All Products")
-                .isVisible();
+        return page.url().contains("/products");
     }
 
     public int getProductCount() {
@@ -28,7 +27,7 @@ public class ProductPage extends BasePage {
     }
 
     public ProductCard getProduct(int index) {
-        Locator product = productCardslocator.nth(5);
+        Locator product = productCardslocator.nth(index);
 
         System.out.println("Product count: " + product.count());
         System.out.println("Product text: " + product.innerText());
@@ -57,7 +56,7 @@ public class ProductPage extends BasePage {
         return products;
     }
     public void clickViewProduct(int index ){
-        ProductCard pc = new ProductCard(productCardslocator);
+        ProductCard pc = new ProductCard(productCardslocator.nth(index));
         pc.clickViewProduct();
     }
 
