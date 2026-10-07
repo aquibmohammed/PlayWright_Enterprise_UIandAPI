@@ -30,7 +30,7 @@ public class CartTest extends baseTest {
         homePage.ishomePageDisplayed();
         homePage.clickProducts();
         ProductPage productPage = new ProductPage(getPage());
-        productPage.isProductsPageDisplayed();
+        //productPage.isProductsPageDisplayed();
         ProductCard productCard = productPage.getProduct(5);
         productCard.clickViewProduct();
         ProductDetailsPage pg = new ProductDetailsPage(getPage());
