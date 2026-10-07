@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 public class diagonisticManager {
 
     private static final String ARTIFACT_ROOT =
-            "src/test/resources/test-artifacts";
+            "target/test-artifacts";
 
     private diagonisticManager() {
         // Prevent object creation
