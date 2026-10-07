@@ -8,7 +8,7 @@
        thread-count="3">
 
     <listeners>
-        <listener class-name="framework.listeners.TestListener"/>
+        <listener class-name="com.pm.framework.listeners.TestListener"/>
     </listeners>
 
     <test name="API Smoke Tests">

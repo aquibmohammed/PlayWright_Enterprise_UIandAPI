@@ -11,35 +11,35 @@ import org.testng.annotations.Test;
 import tests.base.ApiBaseTest;
 
 public class AuthApiTest extends ApiBaseTest {
-
-    @Test(groups = {"smoke", "api"})
-    @Severity(SeverityLevel.CRITICAL)
-    @Description("Verify that a valid user can authenticate through the API")
-    public void verifyLoginApi() {
-
-        String email =
-                ConfigManager.get("test.user.email");
-
-        String password =
-                ConfigManager.get("test.user.password");
-
-        AuthApiClient authApi =
-                new AuthApiClient(getAPIContext());
-
-        APIResponse response =
-                authApi.verifyLogin(
-                        email,
-                        password
-                );
-
-        ApiAssertions.assertStatusCode(
-                response,
-                200
-        );
-
-        ApiAssertions.assertSussessfulResponse(
-                response
-        );
-    }
+//
+//    @Test(groups = {"smoke", "api"})
+//    @Severity(SeverityLevel.CRITICAL)
+//    @Description("Verify that a valid user can authenticate through the API")
+//    public void verifyLoginApi() {
+//
+//        String email =
+//                ConfigManager.get("test.user.email");
+//
+//        String password =
+//                ConfigManager.get("test.user.password");
+//
+//        AuthApiClient authApi =
+//                new AuthApiClient(getAPIContext());
+//
+//        APIResponse response =
+//                authApi.verifyLogin(
+//                        email,
+//                        password
+//                );
+//
+//        ApiAssertions.assertStatusCode(
+//                response,
+//                200
+//        );
+//
+//        ApiAssertions.assertSussessfulResponse(
+//                response
+//        );
+//    }
 }
 

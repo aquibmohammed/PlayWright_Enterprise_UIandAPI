@@ -26,6 +26,6 @@ public class HomePage extends BasePage {
         page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Signup / Login")).click();
     }
     public void clickProducts(){
-        page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Products")).click();
+            page.locator("a[href='/products']").click();
     }
 }
