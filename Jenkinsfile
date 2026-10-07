@@ -32,23 +32,29 @@ pipeline {
         }
     }
 
-    post {
+ post {
 
-        always {
-            junit(
-                testResults: '**/target/surefire-reports/*.xml',
-                allowEmptyResults: true
-            )
+     always {
+         junit(
+             testResults: '**/target/surefire-reports/*.xml',
+             allowEmptyResults: true
+         )
 
-            echo 'Pipeline execution completed.'
-        }
+         archiveArtifacts(
+             artifacts: 'target/test-artifacts/**',
+             allowEmptyArchive: true,
+             fingerprint: true
+         )
 
-        success {
-            echo 'Build and tests completed successfully.'
-        }
+         echo 'Pipeline execution completed.'
+     }
 
-        failure {
-            echo 'Build or tests failed.'
-        }
-    }
+     success {
+         echo 'Build and tests completed successfully.'
+     }
+
+     failure {
+         echo 'Build or tests failed.'
+     }
+ }
 }
