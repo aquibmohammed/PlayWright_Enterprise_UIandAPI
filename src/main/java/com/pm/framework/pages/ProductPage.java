@@ -18,9 +18,9 @@ public class ProductPage extends BasePage {
     }
 
 
-    public boolean isProductsPageDisplayed() {
-        return page.url().contains("/products");
-    }
+//    public boolean isProductsPageDisplayed() {
+//        return page.url().contains("/products");
+//    }
 
     public int getProductCount() {
         return productCardslocator.count();
