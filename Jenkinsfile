@@ -1,12 +1,27 @@
 pipeline {
+
     agent {
         label 'windows-playwright'
     }
 
+    parameters {
+        choice(
+            name: 'TEST_SUITE',
+            choices: ['smoke', 'ui', 'regression'],
+            description: 'Select the TestNG/Maven test suite to execute'
+        )
+    }
+
     options {
         timestamps()
-        timeout(time: 30, unit: 'MINUTES')
+
+        timeout(
+            time: 30,
+            unit: 'MINUTES'
+        )
+
         disableConcurrentBuilds()
+
         buildDiscarder(
             logRotator(
                 numToKeepStr: '20',
@@ -18,43 +33,54 @@ pipeline {
     stages {
 
         stage('Verify Environment') {
+
             steps {
+
                 bat 'java -version'
+
                 bat 'mvn -version'
+
                 bat 'git --version'
             }
         }
 
         stage('Build & Test') {
+
             steps {
-                bat 'mvn clean test -Psmoke'
+
+                echo "Executing test suite: ${params.TEST_SUITE}"
+
+                bat "mvn clean test -P${params.TEST_SUITE}"
             }
         }
     }
 
- post {
+    post {
 
-     always {
-         junit(
-             testResults: '**/target/surefire-reports/*.xml',
-             allowEmptyResults: true
-         )
+        always {
 
-         archiveArtifacts(
-             artifacts: 'target/test-artifacts/**',
-             allowEmptyArchive: true,
-             fingerprint: true
-         )
+            junit(
+                testResults: '**/target/surefire-reports/*.xml',
+                allowEmptyResults: true
+            )
 
-         echo 'Pipeline execution completed.'
-     }
+            archiveArtifacts(
+                artifacts: 'target/test-artifacts/**',
+                allowEmptyArchive: true,
+                fingerprint: true
+            )
 
-     success {
-         echo 'Build and tests completed successfully.'
-     }
+            echo 'Pipeline execution completed.'
+        }
 
-     failure {
-         echo 'Build or tests failed.'
-     }
- }
+        success {
+
+            echo "Test suite '${params.TEST_SUITE}' completed successfully."
+        }
+
+        failure {
+
+            echo "Test suite '${params.TEST_SUITE}' failed."
+        }
+    }
 }
