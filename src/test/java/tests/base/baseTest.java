@@ -60,10 +60,11 @@ public class baseTest {
 
             Path traceDirectory =
                     Paths.get(
-                            "src/test/resources/test-artifacts/traces"
+                            "target/test-artifacts/traces"
                     );
 
             try {
+
                 Files.createDirectories(traceDirectory);
 
                 Path tracePath =
