@@ -3,13 +3,19 @@ pipeline {
         label 'windows-playwright'
     }
 
-    stages {
+    options {
+        timestamps()
+        timeout(time: 30, unit: 'MINUTES')
+        disableConcurrentBuilds()
+        buildDiscarder(
+            logRotator(
+                numToKeepStr: '20',
+                artifactNumToKeepStr: '10'
+            )
+        )
+    }
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+    stages {
 
         stage('Verify Environment') {
             steps {
@@ -27,7 +33,13 @@ pipeline {
     }
 
     post {
+
         always {
+            junit(
+                testResults: '**/target/surefire-reports/*.xml',
+                allowEmptyResults: true
+            )
+
             echo 'Pipeline execution completed.'
         }
 
