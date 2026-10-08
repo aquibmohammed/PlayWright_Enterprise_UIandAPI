@@ -1,5 +1,6 @@
 package com.pm.framework.pages;
 
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import com.pm.framework.components.HeadComponent;
@@ -12,22 +13,25 @@ public class HomePage extends BasePage {
         super(page);
         this.header = new HeadComponent(page);
     }
-
-
     public HomePage navigateToWebsite(){
-        navigateToBaseUrl();
+        naviageToUrl(ConfigManager.get("baseUrl"));
         return this;
     }
     public boolean ishomePageDisplayed(){
-
         return page.title().contains("Automation Exercise");
     }
     public LoginPage clicksSignupLogin(){
-        page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Signup / Login")).click();
+        header.clickSignupLogin();
         return new LoginPage(page);
     }
     public ProductPage clickProducts(){
-            page.locator("a[href='/products']").click();
+            header.clickProducts();
             return new ProductPage(page);
     }
+
+    public CartPage clickCart() {
+        header.clickCart();
+        return new CartPage(page);
+    }
+
 }

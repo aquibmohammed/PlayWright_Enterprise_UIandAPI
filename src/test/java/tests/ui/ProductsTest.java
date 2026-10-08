@@ -1,6 +1,7 @@
 package tests.ui;
 
 import com.pm.framework.components.ProductCard;
+import com.pm.framework.config.ConfigManager;
 import com.pm.framework.pages.HomePage;
 import com.pm.framework.pages.LoginPage;
 import com.pm.framework.pages.ProductPage;

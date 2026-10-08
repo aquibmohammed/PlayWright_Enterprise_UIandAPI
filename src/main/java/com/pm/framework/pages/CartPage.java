@@ -1,13 +1,17 @@
 package com.pm.framework.pages;
 
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.pm.framework.components.CartRow;
 
 public class CartPage extends BasePage{
-    private final String cartRows = "#cart_info_table tbody tr";
+    private static final String cartRows = "#cart_info_table tbody tr";
+    private final Locator cartRowsLocator;
 
 
     public CartPage(Page page) {
         super(page);
+        this.cartRowsLocator = page.locator(cartRows);
     }
 
     public boolean isCartDisplayed(Page page){
@@ -15,15 +19,9 @@ public class CartPage extends BasePage{
     }
 
     public int getCartItemCount(){
-        return page.locator(cartRows).count();
+        return cartRowsLocator.count();
     }
-    public String getProductName(int index){
-        return page.locator(cartRows).nth(index).locator(".cart_description h4 a " ).textContent().trim();
-    }
-    public String getProductPrice(int index){
-        return page.locator(cartRows).nth(index).locator("cart_price p").textContent().trim();
-    }
-    public String getProductQuantity(int index){
-        return page.locator(cartRows).nth(index).locator("cart_quantity button").textContent().trim();
+    public CartRow getCartItem(int index){
+        return  new CartRow(page,cartRowsLocator.nth(index));
     }
 }

@@ -42,7 +42,7 @@ public class CartTest extends baseTest {
         CartPage cartPage = new CartPage(getPage());
         cartPage.isCartDisplayed(getPage());
 
-        Assert.assertEquals(cartPage.getProductName(2), productName,
+        Assert.assertEquals(cartPage.getCartItem(2).getProductName(), productName,
                 "Cart should contain the selected product"
         );
 

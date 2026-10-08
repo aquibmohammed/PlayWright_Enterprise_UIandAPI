@@ -16,10 +16,7 @@ public class BasePage {
     public String getPageUrl(){
         return page.url();
     }
-    public void naviageTo(String url){
+    public void naviageToUrl(String url){
         page.navigate(url);
-    }
-    protected void navigateToBaseUrl(){
-        page.navigate(ConfigManager.get("baseUrl"));
     }
 }

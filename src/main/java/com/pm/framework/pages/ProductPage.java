@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductPage extends BasePage {
+    private static final String PRODUCT_CARDS = ".single-products";
+
     private  final Locator productCardslocator;
 
     public ProductPage(Page page) {
@@ -17,52 +19,36 @@ public class ProductPage extends BasePage {
         productCardslocator = page.locator(".single-products");
     }
 
-
-//    public boolean isProductsPageDisplayed() {
-//        return page.url().contains("/products");
-//    }
-
+    public boolean isProductPageDisplayed(){
+        return page.url().contains("/products");
+    }
     public int getProductCount() {
         return productCardslocator.count();
     }
 
     public ProductCard getProduct(int index) {
-        Locator product = productCardslocator.nth(index);
-
-        System.out.println("Product count: " + product.count());
-        System.out.println("Product text: " + product.innerText());
-        return new ProductCard(
+        return new ProductCard(page,
                 productCardslocator.nth(index)
         );
     }
 
 
-
     public List<ProductCard> getAllProducts() {
-
+        int count = getProductCount();
         List<ProductCard> products = new ArrayList<>();
 
-        int count = productCardslocator.count();
-
-        for (int i = 0; i < count; i++) {
-
-            products.add(
-                    new ProductCard(
-                            productCardslocator.nth(i)
-                    )
-            );
+        for(int i=0; i< count; i++){
+            products.add(getProduct((i)));
         }
-
         return products;
     }
-    public void clickViewProduct(int index ){
-        ProductCard pc = new ProductCard(productCardslocator.nth(index));
-        pc.clickViewProduct();
+    public ProductDetailsPage clickViewProduct(int index ){
+        return getProduct(index).clickViewProduct();
     }
 
     public void searchProduct(String productName){
         page.getByPlaceholder("Search Product").fill(productName);
-        page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Submit"));
+        page.locator("#submit_search").click();
     }
     public boolean isSearchResultsDisplayed(){
         return  page.getByText("Search Products").isVisible();

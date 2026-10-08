@@ -1,27 +1,33 @@
 package com.pm.framework.components;
 
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 
-public class HeadComponent {
+public class HeadComponent extends BaseComponent {
     private final Page page;
 
     public HeadComponent(Page page) {
+        super(page, page.locator("header"));
         this.page = page;
     }
 
+    private Locator link(String name){
+        return root.getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName(name));
+    }
+
     public void clickSignupLogin(){
-        page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Signup /Login")).click();
+       link("Signup / Login").click();
 
     }
     public void clickProducts(){
-        page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Products")).click();
+        link("Products").click();
     }
     public void clickCart(){
-        page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Cart")).click();
+        link("Cart").click();
     }
 
     public void clickHome(){
-        page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Home")).click();
+        link("Home").click();
     }
 }
