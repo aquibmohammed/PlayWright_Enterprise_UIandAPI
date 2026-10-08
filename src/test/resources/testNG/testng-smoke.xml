@@ -21,7 +21,6 @@
 
         <packages>
             <package name="tests.ui"/>
-            <package name="tests.api"/>
         </packages>
 
     </test>

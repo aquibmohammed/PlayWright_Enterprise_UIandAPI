@@ -22,10 +22,12 @@ public class HomePage extends BasePage {
 
         return page.title().contains("Automation Exercise");
     }
-    public void clicksSignupLogin(){
+    public LoginPage clicksSignupLogin(){
         page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Signup / Login")).click();
+        return new LoginPage(page);
     }
-    public void clickProducts(){
+    public ProductPage clickProducts(){
             page.locator("a[href='/products']").click();
+            return new ProductPage(page);
     }
 }

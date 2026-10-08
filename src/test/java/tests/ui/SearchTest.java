@@ -13,16 +13,11 @@ public class SearchTest extends baseTest {
         HomePage homePage = new HomePage(getPage());
 
         homePage.navigateToWebsite();
-        homePage.ishomePageDisplayed();
-        homePage.clicksSignupLogin();
-        LoginPage loginPage = new LoginPage(getPage());
+        LoginPage loginPage = homePage.clicksSignupLogin();
         if(loginPage.isLoginPageDisplayed()) {
-            loginPage.enterEmail("123testsss@gmail.com");
-            loginPage.enterPassword("123456");
-            loginPage.clickLogin();
+            loginPage.LoginUser("123testsss@gmail.com","123456");
         }
-        homePage.clickProducts();
-        ProductPage productPage = new ProductPage(getPage());
+        ProductPage productPage = homePage.clickProducts();
         productPage.searchProduct("Men Tshirt");
       //  Assert.assertTrue(productPage.isProductsPageDisplayed(),"Search results should be displayed");
     }

@@ -13,16 +13,9 @@ public class ProductsTest extends baseTest {
 
     @Test(groups = {"smoke","ui"})
     public void verifyProductsPage() {
-
         HomePage homePage = new HomePage(page);
-
         homePage.navigateToWebsite();
-
-        homePage.clickProducts();
-
-        ProductPage productsPage =
-                new ProductPage(page);
-
+        ProductPage productsPage = homePage.clickProducts();
 //        Assert.assertTrue(
 //                productsPage.isProductsPageDisplayed(),
 //                "Products page should be displayed"
@@ -37,20 +30,14 @@ public class ProductsTest extends baseTest {
     @Test(groups = {"regression","ui"})
     public void verifyFirstProduct(){
         HomePage homePage = new HomePage(page);
-
         homePage.navigateToWebsite();
-        homePage.clicksSignupLogin();
-        LoginPage loginPage = new LoginPage(getPage());
+        LoginPage loginPage = homePage.clicksSignupLogin();
         if(loginPage.isLoginPageDisplayed()) {
-            loginPage.enterEmail("123testsss@gmail.com");
-            loginPage.enterPassword("123456");
-            loginPage.clickLogin();
+            loginPage.LoginUser("123testsss@gmail.com","123456");
         }
-        homePage.clickProducts();
-        ProductPage productPage = new ProductPage(getPage());
+        ProductPage productPage = homePage.clickProducts();
         ProductCard firstProduct = productPage.getProduct(0);
         Assert.assertFalse(firstProduct.getName().isBlank(),"Product Name should not be empty");
-
 
         Assert.assertFalse(
                 firstProduct.getPrice().isBlank(),

@@ -19,6 +19,11 @@ public class LoginPage extends BasePage {
         page.getByPlaceholder("password").fill(password);
     }
 
+    public void LoginUser(String email,String password){
+        enterEmail(email);
+        enterPassword(password);
+        clickLogin();
+    }
     public void registerUser(String name,String email){
         page.getByPlaceholder("Name").fill(name);
         page.getByPlaceholder("EmailAddress").fill(email);

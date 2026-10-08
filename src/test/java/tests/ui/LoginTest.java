@@ -14,14 +14,10 @@ public class LoginTest extends baseTest {
     public void loginTowebsite(){
         HomePage homePage = new HomePage(getPage());
         homePage.navigateToWebsite();
-        homePage.clicksSignupLogin();
-        LoginPage loginPage = new LoginPage(getPage());
+        LoginPage loginPage = homePage.clicksSignupLogin();
         if(loginPage.isLoginPageDisplayed()){
-            loginPage.enterEmail("123testsss@gmail.com");
-            loginPage.enterPassword("123456");
-            loginPage.clickLogin();
+            loginPage.LoginUser("123testsss@gmail.com", "123456");
             Assert.assertFalse(loginPage.ErrorMessageisVisible(),"Error message should be displayed");
-
         };
     }
 
@@ -29,14 +25,13 @@ public class LoginTest extends baseTest {
     public void loginTowebsiteWithWrongCredentials(){
     HomePage homePage = new HomePage(getPage());
         homePage.navigateToWebsite();
-        homePage.clicksSignupLogin();
-    LoginPage loginPage = new LoginPage(getPage());
-        if(loginPage.isLoginPageDisplayed()){
-        loginPage.enterEmail("123testsss@gmail.com");
-        loginPage.enterPassword("12345678");
-        loginPage.clickLogin();
+    LoginPage loginPage = homePage.clicksSignupLogin();
+        if(loginPage.isLoginPageDisplayed()) {
+            loginPage.LoginUser("123testsss@gmail.com",
+                    "123456");
+        }
         Assert.assertTrue(loginPage.ErrorMessageisVisible(),"Error message should be displayed");
         System.out.println(loginPage.getErrorMessage());
     };
-    }
 }
+
