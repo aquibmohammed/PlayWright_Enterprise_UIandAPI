@@ -55,32 +55,20 @@ pipeline {
         }
     }
 
-    post {
+post {
+    always {
+        emailext(
+            to: 'YOUR_GMAIL_ADDRESS@gmail.com',
+            subject: "Jenkins SMTP Test - Build #${env.BUILD_NUMBER}",
+            body: """
+Jenkins Gmail SMTP test.
 
-        always {
-
-            junit(
-                testResults: '**/target/surefire-reports/*.xml',
-                allowEmptyResults: true
-            )
-
-            archiveArtifacts(
-                artifacts: 'target/test-artifacts/**',
-                allowEmptyArchive: true,
-                fingerprint: true
-            )
-
-            echo 'Pipeline execution completed.'
-        }
-
-        success {
-
-            echo "Test suite '${params.TEST_SUITE}' completed successfully."
-        }
-
-        failure {
-
-            echo "Test suite '${params.TEST_SUITE}' failed."
-        }
+Job: ${env.JOB_NAME}
+Build: #${env.BUILD_NUMBER}
+Status: ${currentBuild.currentResult}
+URL: ${env.BUILD_URL}
+"""
+        )
     }
+}
 }
